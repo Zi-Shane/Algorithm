@@ -7,7 +7,7 @@ public class ThreeSum7108056029 extends ThreeSum
 	public static void main(String[] args) 
 	{
 		// int[] a = { 5, 1, -5, 2, 9, 0, 4, -4, 3, 6, -1, -2, -7, -9, -3, -6 }; //7
-		int[] a = { -1, -2, 3, 2, 0 }; //2 {-2 -1 0 2 3}
+		int[] a = { -1, -2, 3, 2, 0}; //2 {-2 -1 0 2 3}
 		ThreeSum7108056029 test = new ThreeSum7108056029();
 		System.out.println(test.T_sum(a));
 	}
@@ -30,36 +30,20 @@ public class ThreeSum7108056029 extends ThreeSum
 			}
 		}
 		
+		int negative_First2_Sum;
 		for (int i = 0; i < N; i++)
 		{
 			for (int j = i+1; j < N; j++)
 			{
-				int p = -A[i]-A[j];
-				if (index.get(p) != null) 
+				negative_First2_Sum = -A[i]-A[j];
+				if (index.get(negative_First2_Sum) != null && negative_First2_Sum > i)
 				{
-					cnt += index.get(p).size();
+					cnt += index.get(negative_First2_Sum).size();
 				}
-
-				// if (rank(A, -A[i]-A[j]) > j) 
-				// 	cnt++;
 			}
 		}
 		return cnt;
 
 	}
 
-	public static int rank(int[] a, int key) 
-	{
-		int lo = 0, hi = a.length-1;
-		while (lo <= hi) 
-		{
-			int mid = lo + (hi - lo) / 2;
-			if (key < a[mid]) 
-				hi = mid - 1;
-			else if (key > a[mid]) 
-				lo = mid + 1;
-			else return mid;
-		}
-		return -1;
-	}
 }
