@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class ThreeSum7108056029 extends ThreeSum 
 {
@@ -60,7 +59,6 @@ public class ThreeSum7108056029 extends ThreeSum
 		mergeSort(r);
 
 		merge(a, l, r, mid, n-mid);
-
 	}
 
 	public static void merge(int[] a, int[] l, int[] r, int left_len, int right_len) 
@@ -81,5 +79,4 @@ public class ThreeSum7108056029 extends ThreeSum
 			a[i++] = r[index_r++];
 		}
 	}
-
 }
