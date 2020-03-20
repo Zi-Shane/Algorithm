@@ -1,3 +1,4 @@
+package HW02;
 
 public class ThreeSum7108056029 extends ThreeSum 
 {
