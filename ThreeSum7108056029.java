@@ -14,6 +14,7 @@ public class ThreeSum7108056029 extends ThreeSum
 	public int T_sum(int[] A) 
 	{
 		mergeSort(A);
+
 		int N = A.length;
 		int cnt = 0;
 		int j, k, j_plus_k;
@@ -79,4 +80,5 @@ public class ThreeSum7108056029 extends ThreeSum
 			a[i++] = r[index_r++];
 		}
 	}
+
 }
