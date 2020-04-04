@@ -1,7 +1,10 @@
+import javax.tools.ForwardingJavaFileObject;
 
 public class IslandCounting7108056029 extends IslandCounting 
 {
+	private String[] node_map;
 	private int[] A_int;
+
 	private int[] B_int;
 	private int[] nodes;
 	private int c = 0;
@@ -20,52 +23,50 @@ public class IslandCounting7108056029 extends IslandCounting
 		int len = A.length;
 		A_int = new int[len];
 		B_int = new int[len];
-		int index_count = 1;
+		int map_len = 0;
+		boolean find = false;
+		node_map = new String[len*2];
 
 		for (int i = 0; i < len; i++) 
 		{
-			if (A_int[i] == 0) {
-				for (int j = 0; j < len; j++) 
-				{
-					if (A[j] == A[i]) {
-						A_int[j] = index_count;
-					}
-					if (B[j] == A[i]) {
-						B_int[j] = index_count;
-					}
+			for (int j = 0; j < map_len; j++) {
+				if (A[i] == node_map[j]) {
+					// old point
+					A_int[i] = j;
+					find = true;
 				}
-				index_count++;
 			}
-			if (B_int[i] == 0) {
-				for (int j = 0; j < len; j++) 
-				{
-					if (A[j] == B[i]) {
-						A_int[j] = index_count;
-					}
-					if (B[j] == B[i]) {
-						B_int[j] = index_count;
-					}
+			if (!find) {
+				// add new point
+				A_int[i] = map_len;
+				node_map[map_len++] = A[i];
+			}
+			find = false;
+
+			for (int j = 0; j < map_len; j++) {
+				if (B[i] == node_map[j]) {
+					B_int[i] = j;
+					find = true;
 				}
-				index_count++;
 			}
+			if (!find) {
+				B_int[i] = map_len;
+				node_map[map_len++] = B[i];
+			}
+			find = false;
 		}
 
-		nodes = new int[index_count];
-		for (int i = 1; i < index_count; i++) {
+		nodes = new int[map_len];
+		// init
+		for (int i = 0; i < map_len; i++) {
 			nodes[i] = i;
 		}
-
 		// do union
 		for (int i = 0; i < len; i++) {
 			union(A_int[i], B_int[i]);
 		}
-
-		for (int i = 1; i < index_count; i++) {
-			System.out.println(i+ ":"+ nodes[i]);
-			
-		}
-
-		return (index_count - 1) - c;
+		
+		return map_len - c;
 	}
 
 	public int find(int i) {
