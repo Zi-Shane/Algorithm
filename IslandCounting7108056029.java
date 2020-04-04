@@ -1,4 +1,3 @@
-import javax.tools.ForwardingJavaFileObject;
 
 public class IslandCounting7108056029 extends IslandCounting 
 {
@@ -7,6 +6,7 @@ public class IslandCounting7108056029 extends IslandCounting
 
 	private int[] B_int;
 	private int[] nodes;
+	private int[] sz;
 	private int c = 0;
 	public static void main(String[] args) 
 	{
@@ -57,9 +57,11 @@ public class IslandCounting7108056029 extends IslandCounting
 		}
 
 		nodes = new int[map_len];
+		sz = new int[map_len];
 		// init
 		for (int i = 0; i < map_len; i++) {
 			nodes[i] = i;
+			sz[i] = 1;
 		}
 		// do union
 		for (int i = 0; i < len; i++) {
@@ -71,6 +73,7 @@ public class IslandCounting7108056029 extends IslandCounting
 
 	public int find(int i) {
 		while (i != nodes[i]) {
+			nodes[i] = nodes[nodes[i]];
 			i = nodes[i];
 		}
 		return i;
@@ -79,6 +82,13 @@ public class IslandCounting7108056029 extends IslandCounting
 	public void union(int p, int q) {
 		int proot = find(p);
 		int qroot = find(q);
+		if (sz[proot] < sz[qroot]) {
+			nodes[proot] = qroot;
+			sz[qroot] += sz[proot];
+		} else {
+			nodes[qroot] = proot;
+			sz[proot] += sz[qroot];
+		}
 		nodes[proot] = qroot;
 		if (proot != qroot) {
 			c = c + 1;
