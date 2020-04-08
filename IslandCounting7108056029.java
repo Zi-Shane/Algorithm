@@ -3,7 +3,6 @@ public class IslandCounting7108056029 extends IslandCounting
 {
 	private String[] node_map;
 	private int[] A_int;
-
 	private int[] B_int;
 	private int[] nodes;
 	private int[] sz;

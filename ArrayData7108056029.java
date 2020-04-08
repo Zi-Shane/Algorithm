@@ -20,7 +20,6 @@ public class ArrayData7108056029 extends ArrayData{
 
 	@Override
 	public int max() {
-		// TODO Auto-generated method stub
 		// int r = A[0];
 		// for (int i : A) {
 		// 	r = (i > r) ? i : r;
@@ -34,7 +33,6 @@ public class ArrayData7108056029 extends ArrayData{
 
 	@Override
 	public int min() {
-		// TODO Auto-generated method stub
 		int r = Integer.MAX_VALUE;
 		for (int i : A) {
 			r = Math.min(r, i);
