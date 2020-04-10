@@ -88,7 +88,7 @@ public class IslandCounting7108056029 extends IslandCounting
 			nodes[qroot] = proot;
 			sz[proot] += sz[qroot];
 		}
-		nodes[proot] = qroot;
+		// nodes[proot] = qroot;
 		if (proot != qroot) {
 			c = c + 1;
 		}
