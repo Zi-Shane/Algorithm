@@ -29,22 +29,11 @@ public class PCL7108056029 extends PCL{
 
 		for (int i = 0; i < array.length; i++) {
 			for (int j = i+1; j < array.length; j++) {
-				slope[slope_i++] = (double)(array[j][1] - array[i][1]) / (double)(array[j][0] - array[i][0]);
-			}
-		}
-
-		mergeSort(slope);
-
-		temp = slope[0];
-		for (double d : slope) {
-			if (d > temp) {
-				count = 0;
-			} else {
-				count++;
-			}
-
-			if (count == 3) {
-				return true;
+				for (int j2 = j+1; j2 < array.length; j2++) {
+					if (collinear(array[i][0], array[i][1], array[j][0], array[j][1], array[j2][0], array[j2][0])) {
+						return true;
+					}
+				}
 			}
 		}
 
@@ -101,7 +90,18 @@ public class PCL7108056029 extends PCL{
 		   i++;
 		}
 		return fact;
-	 }
+	}
+	public boolean collinear(int x1, int y1, int x2,  
+	int y2, int x3, int y3) 
+	{ 
+		int a = x1 * (y2 - y3) +  
+		x2 * (y3 - y1) +  
+		x3 * (y1 - y2); 
 
+		if (a == 0) 
+			return true; 
+		else
+			return false;
+	}  
 
 }
