@@ -1,36 +1,38 @@
 public class PCL7108056029 extends PCL{
 
-	// private int[] gaps;
+	private boolean duplicate = false;
 	public static void main(String[] args) {
 		// int[][] arr = {{0, 1}, {1, 2}, {4, 6}};  //false
-		// int[][] arr = {{-5, 10}, {0, 10}, {100, 10}};  //true
+		// int[][] arr = {{-5, 10}, {0, 10}, {100, 10}};  //true 
 		// int[][] arr = {{-15, -10}, {-5, 0}, {0, 5}};  //true
 		// int[][] arr = {{-10, 10}, {-5, -5}, {5, -35}};  //true
-		int[][] arr = {{-10, 10}, {-10, -5}, {-10, -35}};  //true
+		// int[][] arr = {{-10, 10}, {-10, -5}, {-11, -35}, {-10, -36}};  //true
 		// int[][] arr = {{-10, 10}, {-5, -6}, {5, -35}};  // false
-		// int[][] arr = {{1, 2}, {3, 0}, {4, 0}, {5, 9}, {3, 7}, {-1, -1}, {-10, 999}};
+		int[][] arr = {{1, 2}, {3, 0}, {4, 0}, {5, 9}, {3, 7}, {-1, -1}, {-10, 999}};
 		// int [] sor_arr = { 69, 81, 30, 38, 9, 2, 47, 61, 32, 79};
 		PCL7108056029 pcl = new PCL7108056029();
 		System.out.println(pcl.checkPCL(arr));
-
 	}
 
 	
 
 	public boolean checkPCL(int[][] array)
 	{
-		int n = array.length;
-		int r = 2;
-		int comb = factorial(n) / (factorial(r) * factorial(n-r));
-		double[] slope = new double[comb];
-		int slope_i = 0;
-		int count = 0;
-		double temp;
+		// int comb = factorial(n) / (factorial(r) * factorial(n-r));
+		int vertical;
 
 		for (int i = 0; i < array.length; i++) {
+			vertical = 0;
+			Node root = null;
 			for (int j = i+1; j < array.length; j++) {
-				for (int j2 = j+1; j2 < array.length; j2++) {
-					if (collinear(array[i][0], array[i][1], array[j][0], array[j][1], array[j2][0], array[j2][0])) {
+				if (array[i][0] == array[j][0]) {
+					vertical++;
+					if (vertical == 2) {
+						return true;
+					}
+				} else {
+					root = insert(root, (double)(array[i][1] -array[j][1]) / (double)(array[i][0] -array[j][0])); 
+					if (duplicate) {
 						return true;
 					}
 				}
@@ -39,6 +41,44 @@ public class PCL7108056029 extends PCL{
 
 		return false;
 	}
+
+	// Node declaration  
+	class Node  
+	{  
+		double data;  
+		public Node left;  
+		public Node right; 
+		Node(double data) 
+		{ 
+			this.data = data; 
+			left = right = null; 
+		} 
+	} 
+	
+	// Function to insert data in BST  
+	public Node insert(Node root, double data) 
+	{  
+		if (root == null) 
+			return new Node(data); 
+		if (data == root.data)  
+			duplicate = true; 
+		if (data < root.data)  
+			root.left = insert(root.left, data);  
+		if (data > root.data) 
+			root.right = insert(root.right, data);  
+		return root;  
+	}  
+
+	// InOrder function to display value of array  
+	// in sorted order  
+	public static void inOrder(Node root) 
+	{  
+		if (root == null)  
+			return;  
+		inOrder(root.left);  
+		System.out.print(root.data+" "); 
+		inOrder(root.right);  
+	} 
 
 	public void mergeSort(double[] a)
 	{
